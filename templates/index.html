@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+<div class="hero-container">
+    <h1>Convert Bank Statement</h1>
+    <h2>Convert your bank statement to a YNAB compatible format</h2>
+    <div class="countdown" data-count="2023/12/3" data-template="%d days %h:%m:%s"></div>
+    <form action="/uploadfile" method="post" enctype="multipart/form-data" role="form" class="php-email-form">
+      <div class="row no-gutters">
+        <div class="col-md-6 form-group pr-md-1">
+            <select name="banks" class="form-select" aria-label="Your Bank">
+                <option selected disabled>Open this select menu</option>
+                {% for bank in banks %}
+                    <option name="bank" value="{{ bank }}">{{ bank }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6 form-group pl-md-1">
+            <div class="input-group mb-3">
+                <input type="file" name="file_upload" class="form-control" id="inputGroupFile01">
+              </div>
+        </div>
+      </div>
+      <div class="text-center"><button type="submit">Upload file!</button></div>
+    </form>
+  </div>
+{% endblock %}

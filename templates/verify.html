@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    CSV Data Display
+{% endblock %}
+
+{% block main %}
+<div class="hero-container">
+    <form method="post" action="/download-file"> <!-- Form to handle data submission -->
+        <table>
+            <!-- Table Header -->
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Payee</th>
+                    <th>Memo</th>
+                    <th>Inflow</th>
+                    <th>Outflow</th>
+                </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody>
+                {% for entry in filedata %}
+                <tr>
+                    <td>
+                        {{ entry.Valuta }}
+                        <input type="hidden" name="valuta_{{ loop.index }}" value="{{ entry.Valuta }}">
+                    </td>
+                    <td>
+                        <input type="text" name="payee_{{ loop.index }}" value="{{ entry.Payee }}" style="min-width:300px;">
+                    </td>
+                    <td>
+                        <input type="text" name="buchungstext_{{ loop.index }}" value="{{ entry.Buchungstext }}" style="min-width:300px;">
+                    </td>
+                    {% if entry.Betrag and account_type == "Debit" and entry.Betrag | float > 0.0 %}
+                        <td>
+                            {{ entry.Betrag }}
+                            <input type="hidden" name="inflow_{{ loop.index }}" value="{{ entry.Betrag }}">
+                        </td>
+                        <td>
+                            <input type="hidden" name="outflow_{{ loop.index }}" value="">
+                        </td>
+                    {% else %}
+                        <td>
+                            <input type="hidden" name="inflow_{{ loop.index }}" value="">
+                        </td>
+                        <td>
+                            {{ entry.Betrag }}
+                            <input type="hidden" name="outflow_{{ loop.index }}" value="{{ entry.Betrag }}">
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to adjust input widths based on the longest content in their column
+    function adjustInputWidths(columnSelector) {
+        const inputs = document.querySelectorAll(columnSelector);
+        let maxWidth = 0;
+
+        // Determine the maximum width needed for inputs in this column
+        inputs.forEach(input => {
+            const currentWidth = input.value.length * 8 + 20;  // Estimate width based on content
+            if (currentWidth > maxWidth) {
+                maxWidth = currentWidth;
+            }
+        });
+
+        // Apply the maximum width to all inputs in the column
+        inputs.forEach(input => {
+            input.style.width = maxWidth + 'px';
+        });
+    }
+
+    // Adjust widths for each column individually
+    adjustInputWidths('input[name^="valuta_"]');     // For 'Date' column
+    adjustInputWidths('input[name^="payee_"]');      // For 'Payee' column
+    adjustInputWidths('input[name^="buchungstext_"]'); // For 'Memo' column
+    adjustInputWidths('input[name^="inflow_"]');     // For 'Inflow' column
+    adjustInputWidths('input[name^="outflow_"]');    // For 'Outflow' column
+});
+</script>
+{% endblock %}
