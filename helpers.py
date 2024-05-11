@@ -5,6 +5,9 @@ import csv
 from pathlib import Path
 from datetime import datetime
 
+#----- TODO Summary -------
+# Adjust Migrosbank header cut off
+
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -35,10 +38,6 @@ def normalize_data(data, mapping, standard_headers, config):
     for entry in data:
         normalized_entry = {}
         for source, standard in mapping.items():
-          #  print(f"Standard: {standard}")
-          #  print(f"Source: {source}")
-            #print(f"entry: {entry}")
-
             if source in entry:
                 # Check if this field is a date needing conversion and if a conversion config exists
                 if source == "Date" and date_conversion_config:
@@ -58,7 +57,7 @@ def normalize_data(data, mapping, standard_headers, config):
                 normalized_entry[standard] = None
 
 
-        # Ensure all standard headers are present in the normalized_entry
+        # Ensure all standard headers are present in the normalized_entry, otherwise set to none
         for header in standard_headers:
             if header not in normalized_entry:
                 normalized_entry[header] = None
@@ -72,6 +71,8 @@ def read_and_normalize_csv_data(file_path, bank, csv_configs, STANDARD_HEADERS):
     config = csv_configs.get(bank)
     if not config:
         raise Message(f"You have not selected a valid bank!")
+
+    # TODO if Migrosbank cut off a certain amount of lines
 
     with open(file_path, newline='', encoding='iso-8859-1') as csvfile:
         if config['headers']:

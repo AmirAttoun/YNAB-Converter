@@ -7,6 +7,11 @@ import csv, io, os
 
 from helpers import app, templates, Message, read_and_normalize_csv_data
 
+# TODO Summary
+# TODO Validate if valid CSV (Migrosbank or Viseca)
+# TODO Delete File on server
+
+
 # Constants
 # Path() --> Root Directory
 UPLOAD_DIR = Path() / "uploads"
