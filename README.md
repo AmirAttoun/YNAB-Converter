@@ -1,2 +1,2 @@
 # YNAB-Converter
-Version 2
+Coming soon.
