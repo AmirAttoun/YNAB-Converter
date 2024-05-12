@@ -38,7 +38,7 @@ Data such as "Memo" and "Payee" can be edited on the fly.
 The application allows for quick addition of new source statements from different banks, including dynamic header mapping and further config parameterization.
 
 ## Technology
-This project was built using:
+This project was built using:\
     - FastAPI Framework\
     - Python\
     - Jinja2\
@@ -65,9 +65,9 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 - User session logic
 
 ### Future optimization
-- Unit tests
-- Handle I/O in memory (or DB))
-- Better Error Handling
+- Unit tests\
+- Handle I/O in memory (or DB))\
+- Better Error Handling\
 - User session logic
 
 ### Requirements
