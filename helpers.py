@@ -1,14 +1,16 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-import csv, os
+from fastapi.responses import HTMLResponse
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+import csv, os
 
 # ----- TODO Summary -------
-# [X] Adjust Migrosbank header cut off
-# TODO Document Parameters and Return Values []
-# TODO Docstrings for Functions []
-# TODO Add Type Hints []
+# TODO Adjust Migrosbank header cut off [X]
+# TODO Document Parameters and Return Values [X]
+# TODO Docstrings for Functions [X]
+# TODO Add Type Hints [X]
 # TODO Test long statement files []
 # TODO Adjut output name to include bank name [X]
 
@@ -20,12 +22,30 @@ templates = Jinja2Templates(directory="templates")
 
 class Message(Exception):
     def __init__(self, message: str):
+        """
+        Initializes the Message exception with a message.
+
+        Args:
+            message (str): The error message to be stored in the exception.
+        """
+
         self.message = message
 
 
 # Exception handler for CustomError
 @app.exception_handler(Message)
-def custom_error_handler(request: Request, exc: Message):
+def custom_error_handler(request: Request, exc: Message) -> HTMLResponse:
+    """
+    Handles exceptions of type Message by rendering an error template.
+
+    Args:
+        request (Request): The request object used for generating responses.
+        exc (Message): The custom exception instance containing error details.
+
+    Returns:
+        TemplateResponse: A FastAPI template response with an error message.
+    """
+
     return templates.TemplateResponse(
         "error.html",
         {
@@ -36,18 +56,51 @@ def custom_error_handler(request: Request, exc: Message):
     )
 
 
-def convert_date(timestamp):
-    # Convert the ISO 8601 format to dd-mm-yy
+def convert_date(timestamp: str) -> str:
+    """
+    Converts a timestamp from ISO 8601 format to 'dd-mm-yy' string format.
+
+    Args:
+        timestamp (str): The date and time in ISO 8601 format.
+
+    Returns:
+        str: The date in 'dd-mm-yy' format.
+    """
+
     dt_object = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
     return dt_object.strftime("%d-%m-%y")
 
 
-def delete_file(name: str):
-    """Background task function for deleting a file."""
+def delete_file(name: str) -> None:
+    """
+    Deletes a file with the specified name.
+
+    Args:
+        name (str): The name of the file to be deleted.
+    """
+
     os.remove(name)
 
 
-def normalize_data(data, mapping, standard_headers, config):
+def normalize_data(
+    data: List[Dict[str, str]],
+    mapping: Dict[str, str],
+    standard_headers: List[str],
+    config: Dict[str, Any],
+) -> List[Dict[str, Optional[str]]]:
+    """
+    Normalizes a list of data entries according to the specified mapping and configuration.
+
+    Args:
+        data (List[Dict[str, str]]): The data entries to normalize.
+        mapping (Dict[str, str]): A dictionary mapping from source field names to standard field names.
+        standard_headers (List[str]): A list of headers that should be present in each entry.
+        config (Dict[str, Any]): Configuration settings that may include date conversion details.
+
+    Returns:
+        List[Dict[str, Optional[str]]]: A list of dictionaries representing normalized data entries.
+    """
+
     normalized_data = []
     date_conversion_config = config.get(
         "date_conversion"
@@ -88,7 +141,22 @@ def normalize_data(data, mapping, standard_headers, config):
     return normalized_data
 
 
-def read_and_normalize_csv_data(file_path, bank, csv_configs, STANDARD_HEADERS):
+def read_and_normalize_csv_data(
+    file_path: str, bank: str, csv_configs: Dict[str, Any], STANDARD_HEADERS: List[str]
+) -> List[Dict[str, Optional[str]]]:
+    """
+    Reads and normalizes CSV data from a given file path based on the specified bank's configuration.
+
+    Args:
+        file_path (str): The path to the CSV file.
+        bank (str): The bank identifier to fetch the specific configuration.
+        csv_configs (Dict[str, Any]): A dictionary containing configurations for different banks.
+        STANDARD_HEADERS (List[str]): A list of standard headers expected in the output.
+
+    Returns:
+        List[Dict[str, Optional[str]]]: The normalized data as a list of dictionaries.
+    """
+
     config = csv_configs.get(bank)
     if not config:
         raise Message(f"You have not selected a valid bank!")

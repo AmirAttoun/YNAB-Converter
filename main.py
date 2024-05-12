@@ -1,33 +1,41 @@
 from fastapi import Request, UploadFile, BackgroundTasks
-from pathlib import Path
 from fastapi.responses import HTMLResponse, FileResponse
+from pathlib import Path
+from typing import List, Dict, Any
 import csv, os
 
 from helpers import app, templates, Message, read_and_normalize_csv_data, delete_file
 
 # TODO Validate if valid CSV (Migrosbank or Viseca) []
 # TODO Delete File on server after response [X]
-    # Use background task to delete file
-    # Verify Usage of BackgroundTasks
-# TODO Document Parameters and Return Values []
-# TODO Docstrings for Functions []
+# Use background task to delete file
+# Verify Usage of BackgroundTasks
+# TODO Document Parameters and Return Values [X]
+# TODO Docstrings for Functions [X]
+# TODO Add Design Disclaimer to readme and layout.html []
 # TODO Add Type Hints []
+# TODO Delete initial file after conversion []
 
 
+# ----CONFIG-----#
 
+UPLOAD_DIR = Path() / "uploads"  # Directory to store uploaded files
+CONVERT_DIR = Path() / "converted"  # Directory to store converted files
+BANKS: List[str] = ["Migrosbank", "Viseca (One)"]  # List of supported banks
+FILETYPES: List[str] = [".CSV", ".csv"]  # List of supported file types
 
+# Standard headers for CSV files
+STANDARD_HEADERS: List[str] = ["Datum", "Buchungstext", "Betrag", "Valuta"]
 
-# Constants
-# Path() --> Root Directory
-UPLOAD_DIR = Path() / "uploads"
-CONVERT_DIR = Path() / "converted"
-BANKS = ["Migrosbank", "Viseca (One)"]
-FILETYPES = [".CSV", ".csv"]
+# headers: Headers to expect in the CSV file
+# delimiter: Delimiter used in the CSV file
+# skip_first_row: Whether to skip the first row of the CSV file
+# mapping: Mapping of expected headers to standard headers
+# date_conversion: Date conversion configuration
+# type: Type of account (Debit or Credit)
+# header_cutoff: Number of intial lines to ignore in CSV file
 
-
-STANDARD_HEADERS = ["Datum", "Buchungstext", "Betrag", "Valuta"]
-
-CSV_CONFIGS = {
+CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
     "Migrosbank": {
         "headers": ["Datum", "Buchungstext", "Betrag", "Valuta"],
         "delimiter": ";",
@@ -40,7 +48,7 @@ CSV_CONFIGS = {
         },
         "date_conversion": None,
         "type": "Debit",
-        "header_cutoff": 11 ,
+        "header_cutoff": 11,
     },
     "Viseca (One)": {
         "headers": [
@@ -69,18 +77,43 @@ CSV_CONFIGS = {
     # Other configurations as needed
 }
 
+# ----END CONFIG-----#
+# ----ROUTES-----#
 
-# Root Explorer, pass BANKS for valid banks
+
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
+async def index(request: Request) -> HTMLResponse:
+    """
+    Serve the index page with a list of valid banks.
+
+    Args:
+        request (Request): The request context.
+
+    Returns:
+        HTMLResponse: The HTML response containing the rendered index page.
+    """
+
     return templates.TemplateResponse(
         request=request, name="index.html", context={"banks": BANKS}
     )
 
 
-# Upload CSV, validate for valid input (not empty and must be a csv)
 @app.post("/uploadfile")
-async def create_upload_file(file_upload: UploadFile, request: Request):
+async def create_upload_file(file_upload: UploadFile, request: Request) -> HTMLResponse:
+    """
+    Handle the upload of a CSV file, validate it, and prepare data for display.
+
+    Args:
+        file_upload (UploadFile): The uploaded CSV file.
+        request (Request): The request context to retrieve additional form data.
+
+    Raises:
+        Message: Custom exception for errors related to file upload and validation.
+
+    Returns:
+        HTMLResponse: The HTML response displaying the verification page with parsed data.
+    """
+
     # Get the selected bank
     form_data = await request.form()
     bank = form_data.get("banks")
@@ -116,7 +149,23 @@ async def create_upload_file(file_upload: UploadFile, request: Request):
 
 
 @app.post("/download-file")
-async def download_file(request: Request, background_tasks: BackgroundTasks):
+async def download_file(
+    request: Request, background_tasks: BackgroundTasks
+) -> FileResponse:
+    """
+    Generate a CSV file from user-edited data and initiate a download.
+
+    Args:
+        request (Request): The request context to retrieve form data.
+        background_tasks (BackgroundTasks): Background tasks for post-response actions, like file cleanup.
+
+    Raises:
+        Message: Custom exception if there is no data to write to the CSV file.
+
+    Returns:
+        FileResponse: A response object that allows the user to download the generated CSV file.
+    """
+
     form_data = await request.form()
     filedata = []
 
@@ -157,3 +206,6 @@ async def download_file(request: Request, background_tasks: BackgroundTasks):
     background_tasks.add_task(delete_file, filename)
 
     return response
+
+
+# ----END ROUTES-----#
