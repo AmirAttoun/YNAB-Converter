@@ -2,7 +2,7 @@
 
 ![YNAB Converter](https://i.ibb.co/B2pTt7p/YNAB.png)
 
-![Language](https://img.shields.io/badge/language-python-blue)\
+![Language](https://img.shields.io/badge/language-python-green)\
 ![Language](https://img.shields.io/badge/language-fastapi-white)\
 ![Language](https://img.shields.io/badge/language-html-blue)\
 ![Language](https://img.shields.io/badge/language-jinja2-black)\
@@ -59,7 +59,7 @@ After editing the statement, a YNAB standardized .csv can be downloaded.
 - Adding additional statement providers
 - User session logic
 
-### Future Optimization
+### Future optimization
 - Unit tests
 - Handle I/O in memory (or DB))
 - Better Error Handling
