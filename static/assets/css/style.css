@@ -109,6 +109,15 @@ h6,
   width: 100%; /* Ensure it takes the full width of its parent */
 }
 
+#hero .save-button {
+  margin-top: 20px;
+}
+
+#hero td
+{
+  padding: 10px;
+}
+
 
 #hero h1 {
   margin: 0 0 10px 0;

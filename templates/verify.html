@@ -6,7 +6,7 @@
 
 {% block main %}
 <section id="hero">
-<div class="hero-container">
+<div class="hero-container form-group">
     <form method="post" action="/download-file"> <!-- Form to handle data submission -->
         <table>
             <!-- Table Header -->
@@ -25,14 +25,14 @@
                 <tr>
                     <td>
                         {{ entry.Valuta }}
-                        <input type="hidden" name="valuta_{{ loop.index }}" value="{{ entry.Valuta }}">
-                        <input type="hidden" name="bank" value="{{ bank }}">
+                        <input class="form-control" type="hidden" name="valuta_{{ loop.index }}" value="{{ entry.Valuta }}">
+                        <input class="form-control" type="hidden" name="bank" value="{{ bank }}">
                     </td>
                     <td>
-                        <input type="text" name="payee_{{ loop.index }}" value="{{ entry.Payee }}" style="min-width:300px;">
+                        <input class="form-control" type="text" name="payee_{{ loop.index }}" value="{{ entry.Payee }}" style="min-width:300px;">
                     </td>
                     <td>
-                        <input type="text" name="buchungstext_{{ loop.index }}" value="{{ entry.Buchungstext }}" style="min-width:300px;">
+                        <input class="form-control" type="text" name="buchungstext_{{ loop.index }}" value="{{ entry.Buchungstext }}" style="min-width:300px;">
                     </td>
                     {% if entry.Betrag and account_type == "Debit" and entry.Betrag | float > 0.0 %}
                         <td>
@@ -55,7 +55,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <button type="submit">Save Changes</button>
+        <button class="save-button btn btn-primary" type="submit">Save Changes</button>
     </form>
 </div>
 </section>

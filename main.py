@@ -96,7 +96,7 @@ async def index(request: Request) -> HTMLResponse:
 
 
 @app.post("/uploadfile")
-async def create_upload_file(file_upload: UploadFile, request: Request) -> HTMLResponse:
+async def create_upload_file(file_upload: UploadFile, request: Request, background_tasks: BackgroundTasks) -> HTMLResponse:
     """
     Handle the upload of a CSV file, validate it, and prepare data for display.
 
@@ -137,6 +137,9 @@ async def create_upload_file(file_upload: UploadFile, request: Request) -> HTMLR
         config = CSV_CONFIGS.get(bank)
         account_type = config.get("type")
 
+        #Delete all files in the upload directory once on verify
+        background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
+
         return templates.TemplateResponse(
             request=request,
             name="verify.html",
@@ -146,8 +149,7 @@ async def create_upload_file(file_upload: UploadFile, request: Request) -> HTMLR
 
 @app.post("/download-file")
 async def download_file(
-    request: Request, background_tasks: BackgroundTasks
-) -> FileResponse:
+    request: Request, background_tasks: BackgroundTasks) -> FileResponse:
     """
     Generate a CSV file from user-edited data and initiate a download.
     Delete all files in the upload directory after the download.
@@ -200,10 +202,8 @@ async def download_file(
         filename, media_type="text/csv", filename=os.path.basename(filename)
     )
 
-    # Delete files on server, using background task
+     #Delete all files in the upload directory once downloaded
     background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
-
     return response
-
 
 # ----END ROUTES-----#
