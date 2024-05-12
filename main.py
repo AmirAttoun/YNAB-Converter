@@ -4,23 +4,17 @@ from pathlib import Path
 from typing import List, Dict, Any
 import csv, os
 
-from helpers import app, templates, Message, read_and_normalize_csv_data, delete_file
-
-# TODO Validate if valid CSV (Migrosbank or Viseca) []
-# TODO Delete File on server after response [X]
-# Use background task to delete file
-# Verify Usage of BackgroundTasks
-# TODO Document Parameters and Return Values [X]
-# TODO Docstrings for Functions [X]
-# TODO Add Design Disclaimer to readme and layout.html []
-# TODO Add Type Hints []
-# TODO Delete initial file after conversion []
-
+from helpers import (
+    app,
+    templates,
+    Message,
+    read_and_normalize_csv_data,
+    delete_all_files_in_folder,
+)
 
 # ----CONFIG-----#
 
-UPLOAD_DIR = Path() / "uploads"  # Directory to store uploaded files
-CONVERT_DIR = Path() / "converted"  # Directory to store converted files
+UPLOAD_DIR = Path() / "files"  # Directory to store uploaded and converted files
 BANKS: List[str] = ["Migrosbank", "Viseca (One)"]  # List of supported banks
 FILETYPES: List[str] = [".CSV", ".csv"]  # List of supported file types
 
@@ -34,6 +28,7 @@ STANDARD_HEADERS: List[str] = ["Datum", "Buchungstext", "Betrag", "Valuta"]
 # date_conversion: Date conversion configuration
 # type: Type of account (Debit or Credit)
 # header_cutoff: Number of intial lines to ignore in CSV file
+# initial_field: Initial field to identify the start of the CSV file in accordance with the bank chosen
 
 CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
     "Migrosbank": {
@@ -49,6 +44,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
         "date_conversion": None,
         "type": "Debit",
         "header_cutoff": 11,
+        "initial_field": "Kontoauszug bis:",
     },
     "Viseca (One)": {
         "headers": [
@@ -73,6 +69,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
         },
         "type": "Credit",
         "header_cutoff": 0,
+        "initial_field": "TransactionID",
     }
     # Other configurations as needed
 }
@@ -126,12 +123,11 @@ async def create_upload_file(file_upload: UploadFile, request: Request) -> HTMLR
         raise Message("You did not provide a .csv file!")
     else:
         # TODO CHECK IF VALID CSV
+        # Get the bank configuration
 
         save_to = UPLOAD_DIR / file_upload.filename
         with open(save_to, "wb") as f:
             f.write(data)
-
-        # Open the file and pass it to verify
 
         # Read the csv
         filedata = read_and_normalize_csv_data(
@@ -154,6 +150,7 @@ async def download_file(
 ) -> FileResponse:
     """
     Generate a CSV file from user-edited data and initiate a download.
+    Delete all files in the upload directory after the download.
 
     Args:
         request (Request): The request context to retrieve form data.
@@ -187,7 +184,8 @@ async def download_file(
 
     # Write the data to a new CSV file
     bank = form_data.get("bank")
-    filename = CONVERT_DIR / f"{bank}_YNAB_data.csv"
+    filename = UPLOAD_DIR / f"{bank}_YNAB_data.csv"
+
     with open(filename, "w", newline="", encoding="iso-8859-1") as f:
         if filedata:
             writer = csv.DictWriter(f, fieldnames=filedata[0].keys())
@@ -202,8 +200,8 @@ async def download_file(
         filename, media_type="text/csv", filename=os.path.basename(filename)
     )
 
-    # Delete file on server, using background task
-    background_tasks.add_task(delete_file, filename)
+    # Delete files on server, using background task
+    background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
 
     return response
 

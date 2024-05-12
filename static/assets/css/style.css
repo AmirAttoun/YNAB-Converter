@@ -89,28 +89,26 @@ h6,
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 100vh;
   background: url("../img/hero-bg.jpg") top center;
   background-size: cover;
   position: relative;
   margin-top: -80px;
   z-index: 9;
-  /* countdown */
+  /* Set minimum height to 100vh and remove fixed height */
+  min-height: 100vh;
 }
 
 #hero .hero-container {
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;  /* Changed from 'absolute' to 'relative' */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-  padding: 0 15px;
+  padding: 60px 100px; /* Adjusted padding for better content wrapping */
+  width: 100%; /* Ensure it takes the full width of its parent */
 }
+
 
 #hero h1 {
   margin: 0 0 10px 0;

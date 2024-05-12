@@ -1,0 +1,6 @@
+"TransactionID","Date","Merchant","Amount","PFMCategoryID","PFMCategoryName"
+"TRX2024051000003397187","2024-05-10T00:00:00","","100.00","cv_creditcardfees","Card Fees"
+"TRX2024050800000692417","2024-05-08T04:56:41","Infomaniak","6.00","cv_it","Information Technology"
+"TRX2024050600001961981","2024-05-04T14:50:48","Apple","1.00","cv_electronics","Electronics"
+"TRX2024050300000104907","2024-05-02T18:23:15","Electronic Arts","14.35","cv_hobbies","Hobbies"
+"TRX2024050200002445657","2024-05-01T13:48:06","PAYPAL *PATREON  MEMBE","9.75","cv_electronics","Electronics"

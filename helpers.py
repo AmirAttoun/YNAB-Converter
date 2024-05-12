@@ -55,32 +55,25 @@ def custom_error_handler(request: Request, exc: Message) -> HTMLResponse:
         status_code=400,
     )
 
-
-def convert_date(timestamp: str) -> str:
+def delete_all_files_in_folder(folder_path: str) -> None:
+    #docstring for this function
     """
-    Converts a timestamp from ISO 8601 format to 'dd-mm-yy' string format.
+    Deletes all files in a given folder.
 
     Args:
-        timestamp (str): The date and time in ISO 8601 format.
+        folder_path (str): The path to the folder containing files to delete.
 
     Returns:
-        str: The date in 'dd-mm-yy' format.
+        None
     """
 
-    dt_object = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
-    return dt_object.strftime("%d-%m-%y")
-
-
-def delete_file(name: str) -> None:
-    """
-    Deletes a file with the specified name.
-
-    Args:
-        name (str): The name of the file to be deleted.
-    """
-
-    os.remove(name)
-
+    for filename in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, filename)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(f'Failed to delete {file_path}. Reason: {e}')
 
 def normalize_data(
     data: List[Dict[str, str]],
@@ -146,12 +139,14 @@ def read_and_normalize_csv_data(
 ) -> List[Dict[str, Optional[str]]]:
     """
     Reads and normalizes CSV data from a given file path based on the specified bank's configuration.
+    Validate if CSV file is valid for the selected bank.
 
     Args:
         file_path (str): The path to the CSV file.
         bank (str): The bank identifier to fetch the specific configuration.
         csv_configs (Dict[str, Any]): A dictionary containing configurations for different banks.
         STANDARD_HEADERS (List[str]): A list of standard headers expected in the output.
+        initial_field (str): The initial field to check for in the CSV file. Compliance check.
 
     Returns:
         List[Dict[str, Optional[str]]]: The normalized data as a list of dictionaries.
@@ -161,9 +156,20 @@ def read_and_normalize_csv_data(
     if not config:
         raise Message(f"You have not selected a valid bank!")
 
-    # TODO if Migrosbank cut off a certain amount of lines
+    # get bank config initial field for compliance check
+    initial_field = config.get("initial_field")
 
     with open(file_path, newline="", encoding="iso-8859-1") as csvfile:
+        # check if the initial field is, as a substring, in the first cell of the csv file
+        if initial_field:
+            reader = csv.DictReader(csvfile, delimiter=config["delimiter"])
+            first_row = next(reader)
+            # Check if any key in first_row contains the initial_field as a substring
+            if not any(initial_field in key for key in first_row):
+                raise Message(f"Invalid file. Please select a valid {bank} CSV file.")
+            # Reset the file pointer to the beginning of the file after headers
+            csvfile.seek(0)
+
         if config["headers"]:
             reader = csv.DictReader(
                 csvfile, fieldnames=config["headers"], delimiter=config["delimiter"]
