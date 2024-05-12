@@ -57,10 +57,10 @@ def normalize_data(data, mapping, standard_headers, config):
                 normalized_entry[standard] = None
 
 
-        # Ensure all standard headers are present in the normalized_entry, otherwise set to none
+        # Ensure all standard headers are present in the normalized_entry, otherwise set to empty string
         for header in standard_headers:
             if header not in normalized_entry:
-                normalized_entry[header] = None
+                normalized_entry[header] = ""
 
         normalized_data.append(normalized_entry)
 
