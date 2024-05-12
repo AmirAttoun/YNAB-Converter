@@ -79,5 +79,4 @@ uvicorn main:app --reload
 ```
 
 ### Contact
-Please do not hesitate to contact me if you have questions regarding the project
-or any other related subject. Mail me <a href="mailto:amir.attoun@protonmail.ch">here</a>.
+amir(dot)attoun(at)protonmail(dot)ch
