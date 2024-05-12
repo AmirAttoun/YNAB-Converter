@@ -79,7 +79,7 @@ See requirements.txt for mandatory pip installs
 uvicorn main:app --reload
 ```
 ### Copyright Disclaimer
-The design for the application is provided for free by https://bootstrapmade.com/free-bootstrap-coming-soon-template-countdwon/ and has been "jinjafied" and adjusted by me.
+The design for the application is provided for free by\ https://bootstrapmade.com/free-bootstrap-coming-soon-template-countdwon/\ and has been "jinjafied" and adjusted by me.
 Please check https://bootstrapmade.com/license/ for further details.
 
 ### Contact
