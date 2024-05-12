@@ -43,6 +43,7 @@ This project was built using:
 - Python
 - Jinja2
 - JavaScript
+- Bootstrap
 
 ## Features
 
@@ -77,6 +78,8 @@ See requirements.txt for mandatory pip installs
 ```
 uvicorn main:app --reload
 ```
+### Copyright Disclaimer
+The design for the application is provided for free by https://bootstrapmade.com/free-bootstrap-coming-soon-template-countdwon/
 
 ### Contact
 amir(dot)attoun(at)protonmail(dot)ch
