@@ -39,10 +39,10 @@ The application allows for quick addition of new source statements from differen
 
 ## Technology
 This project was built using:\
-    - FastAPI Framework\
-    - Python\
-    - Jinja2\
-    - JavaScript
+- FastAPI Framework
+- Python\
+- Jinja2\
+- JavaScript
 
 ## Features
 
