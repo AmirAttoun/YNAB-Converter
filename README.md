@@ -1,6 +1,6 @@
 # YNAB Converter
 
-![YNAB Converter](https://ibb.co/hF62yn6)\
+![YNAB Converter](https://i.ibb.co/B2pTt7p/YNAB.png)
 
 ![Language](https://img.shields.io/badge/language-python-blue)\
 ![Language](https://img.shields.io/badge/language-fastapi-white)\
