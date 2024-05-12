@@ -19,12 +19,6 @@ https://github.com/AmirAttoun/YNAB-Converter
 Welcome to *YNAB Converter* for Migrosbank / Viseca (One) bank statements!
 This project was created as the final project for Edx's C50x Computer Science with Python
 
-## Technology
-This project was built using:
-    - FastAPI Framework
-    - Python
-    - Jinja2
-    - JavaScript
 
 ## Glossary
 Migrosbank – A local Swiss bank
@@ -41,6 +35,13 @@ to the YNAB defined ready-for-import structure.
 
 The application allows for quick addition of new source statements from different banks, including dynamic header mapping and further config parameterization.
 
+## Technology
+This project was built using:
+    - FastAPI Framework
+    - Python
+    - Jinja2
+    - JavaScript
+
 ## Features
 
 ### Uploading a transaction statement
@@ -51,8 +52,9 @@ Both statemtens will be processed to a uniform format.
 Once a statement has been uploaded, the user is free to edit the relevant fields.
 Relevant fields are "Memo" and "Payee".
 
-### Download the transaction statement
+### Downloading the normalized transaction statement
 After editing the statement, a YNAB standardized .csv can be downloaded.
+Use the YNAB import functionality for the import of this file.
 
 ### Future features 
 
@@ -64,6 +66,12 @@ After editing the statement, a YNAB standardized .csv can be downloaded.
 - Handle I/O in memory (or DB))
 - Better Error Handling
 - User session logic
+
+### Requirements
+See requirements.txt for mandatory imports
+
+### Usage
+uvicorn main:app --reload
 
 ### Contact
 Please do not hesitate to contact me if you have questions regarding the project
