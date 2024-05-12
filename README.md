@@ -38,10 +38,10 @@ Data such as "Memo" and "Payee" can be edited on the fly.
 The application allows for quick addition of new source statements from different banks, including dynamic header mapping and further config parameterization.
 
 ## Technology
-This project was built using:\
+This project was built using:
 - FastAPI Framework
-- Python\
-- Jinja2\
+- Python
+- Jinja2
 - JavaScript
 
 ## Features
