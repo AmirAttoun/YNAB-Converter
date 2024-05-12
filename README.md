@@ -53,7 +53,7 @@ Both statemtens will be processed to a uniform format.
 
 ### Editing the transaction statement
 Once a statement has been uploaded, the user is free to edit the relevant fields.
-Relevant fields are "Memo" and "Payee". Date and the amount are not editable to ensure data integrity.
+Relevant fields are "Memo" and "Payee". Date and the amount are not editable to ensure integrity of crucial data as noted by the transaction statement.
 
 ### Downloading the normalized transaction statement
 After editing the statement, a .csv conforming to YNAB standards is generated and downloaded.
