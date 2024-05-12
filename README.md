@@ -21,9 +21,9 @@ This project was created as the final project for edX's C50x Computer Science wi
 
 
 ## Glossary
-Migrosbank – A local Swiss bank\
-Vicesa (One) – A credit card provider\
-YNAB (https://ynab.com) – A web based budgeting tool
+- Migrosbank: A local Swiss bank
+- Vicesa (One): A credit card provider
+- YNAB (https://ynab.com): A web based budgeting tool
 
 ## Description
 YNAB supports the import of .csv files for adding transactions.
