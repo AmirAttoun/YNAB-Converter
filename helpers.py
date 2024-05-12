@@ -6,7 +6,11 @@ from datetime import datetime
 
 # ----- TODO Summary -------
 # [X] Adjust Migrosbank header cut off
-# Make sure the csv is validates for header length
+# TODO Document Parameters and Return Values []
+# TODO Docstrings for Functions []
+# TODO Add Type Hints []
+# TODO Test logn statement files []
+# TODO Adjut output name to include bank name []
 
 app = FastAPI()
 

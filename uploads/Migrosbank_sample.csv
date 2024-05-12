@@ -1,0 +1,19 @@
+Kontoauszug bis: 09.05.2024 ;;;
+;;;
+Kontonummer: XXX.XXX.XX;;;
+Bezeichnung: Privatkonto;;;
+Saldo: CHF XXXXXX.XX;;;
+;;;
+Hans Muster;;;
+Musterweg 17;;;
+9999 Timbuktu;;;
+;;;
+;;;
+Datum;Buchungstext;Betrag;Valuta
+08.05.24;Vergütung;-1239.28;08.05.24
+08.05.24;Zahlungseingang;1239.28;08.05.24
+08.05.24;Einkauf Coop-1923 Wint. St 06.05.2024 17:36 Karte: 474124******1234Betrag: CHF 28.50;-28.5;06.05.24
+08.05.24;Einkauf Coop-2608 City SM 06.05.2024 13:20 Karte: 474124******1234 Betrag: CHF 31.00;-31;06.05.24
+08.05.24;Einkauf Coop-2608 City SM 06.05.2024 12:14 Karte: 474124******1234 Betrag: CHF 2.90;-2.9;06.05.24
+08.05.24;Einkauf SPAR 04.05.2024 14:13 Karte: 474124******1234 Betrag: CHF 9.90;-11.4;04.05.24
+08.05.24;Einkauf KIOSK PURCHASE 03.05.2024 22:13 Karte: 474124******1234 Betrag: CHF 1.08;-2.58;03.05.24

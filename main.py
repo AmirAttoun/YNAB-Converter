@@ -6,9 +6,15 @@ import csv, os
 from helpers import app, templates, Message, read_and_normalize_csv_data, delete_file
 
 # TODO Validate if valid CSV (Migrosbank or Viseca) []
-# TODO Delete File on server [X]
-# Use background task to delete file
-# Verify Usage of BackgroundTasks
+# TODO Delete File on server after response [X]
+    # Use background task to delete file
+    # Verify Usage of BackgroundTasks
+# TODO Document Parameters and Return Values []
+# TODO Docstrings for Functions []
+# TODO Add Type Hints []
+
+
+
 
 
 # Constants
@@ -34,7 +40,7 @@ CSV_CONFIGS = {
         },
         "date_conversion": None,
         "type": "Debit",
-        "header_cutoff": 12,
+        "header_cutoff": 11 ,
     },
     "Viseca (One)": {
         "headers": [
@@ -105,7 +111,7 @@ async def create_upload_file(file_upload: UploadFile, request: Request):
         return templates.TemplateResponse(
             request=request,
             name="verify.html",
-            context={"filedata": filedata, "account_type": account_type},
+            context={"filedata": filedata, "account_type": account_type, "bank": bank},
         )
 
 
@@ -131,8 +137,8 @@ async def download_file(request: Request, background_tasks: BackgroundTasks):
         i += 1
 
     # Write the data to a new CSV file
-    filename = CONVERT_DIR / "updated_data.csv"
-
+    bank = form_data.get("bank")
+    filename = CONVERT_DIR / f"{bank}_YNAB_data.csv"
     with open(filename, "w", newline="", encoding="iso-8859-1") as f:
         if filedata:
             writer = csv.DictWriter(f, fieldnames=filedata[0].keys())

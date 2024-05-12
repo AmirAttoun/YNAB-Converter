@@ -66,7 +66,7 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 
 ### Future optimization
 - Unit tests
-- Handle I/O in memory (or DB))
+- Handle I/O in memory (or DB)
 - Better Error Handling
 - User session logic
 

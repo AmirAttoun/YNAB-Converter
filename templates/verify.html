@@ -25,6 +25,7 @@
                     <td>
                         {{ entry.Valuta }}
                         <input type="hidden" name="valuta_{{ loop.index }}" value="{{ entry.Valuta }}">
+                        <input type="hidden" name="bank" value="{{ bank }}">
                     </td>
                     <td>
                         <input type="text" name="payee_{{ loop.index }}" value="{{ entry.Payee }}" style="min-width:300px;">
