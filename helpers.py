@@ -6,14 +6,6 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 import csv, os
 
-# ----- TODO Summary -------
-# TODO Adjust Migrosbank header cut off [X]
-# TODO Document Parameters and Return Values [X]
-# TODO Docstrings for Functions [X]
-# TODO Add Type Hints [X]
-# TODO Test long statement files []
-# TODO Adjut output name to include bank name [X]
-
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

@@ -12,7 +12,7 @@ from helpers import (
     delete_all_files_in_folder,
 )
 
-# ----CONFIG-----#
+# ----CONFIG----- #
 
 UPLOAD_DIR = Path() / "files"  # Directory to store uploaded and converted files
 BANKS: List[str] = ["Migrosbank", "Viseca (One)"]  # List of supported banks
@@ -74,8 +74,8 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
     # Other configurations as needed
 }
 
-# ----END CONFIG-----#
-# ----ROUTES-----#
+# ----END CONFIG----- #
+# ----ROUTES----- #
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -206,4 +206,4 @@ async def download_file(
     background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
     return response
 
-# ----END ROUTES-----#
+# ----END ROUTES----- #
