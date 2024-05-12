@@ -169,7 +169,6 @@ def read_and_normalize_csv_data(
                 csvfile, fieldnames=config["headers"], delimiter=config["delimiter"]
             )
             # First, we skip the amount of rows defined in config['header_cutoff']
-            # TODO Validate that there is a valid CSV (length of header)
             for i in range(config["header_cutoff"]):
                 next(reader)
 
