@@ -1,10 +1,10 @@
 # YNAB Converter
 
-![Language](https://img.shields.io/badge/language-python-blue)
-![Language](https://img.shields.io/badge/language-fastapi-white)
-![Language](https://img.shields.io/badge/language-html-blue)
-![Language](https://img.shields.io/badge/language-jinja2-black)
-![Language](https://img.shields.io/badge/language-javascript-pink)
+![Language](https://img.shields.io/badge/language-python-blue)\
+![Language](https://img.shields.io/badge/language-fastapi-white)\
+![Language](https://img.shields.io/badge/language-html-blue)\
+![Language](https://img.shields.io/badge/language-jinja2-black)\
+![Language](https://img.shields.io/badge/language-javascript-pink)\
 
 
 ## Video Demo
