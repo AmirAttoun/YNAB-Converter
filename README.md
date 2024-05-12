@@ -65,16 +65,18 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 - User session logic
 
 ### Future optimization
-- Unit tests\
-- Handle I/O in memory (or DB))\
-- Better Error Handling\
+- Unit tests
+- Handle I/O in memory (or DB))
+- Better Error Handling
 - User session logic
 
 ### Requirements
-See requirements.txt for mandatory imports
+See requirements.txt for mandatory pip installs
 
 ### Usage
+```
 uvicorn main:app --reload
+```
 
 ### Contact
 Please do not hesitate to contact me if you have questions regarding the project
