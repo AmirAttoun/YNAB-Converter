@@ -47,8 +47,9 @@ def custom_error_handler(request: Request, exc: Message) -> HTMLResponse:
         status_code=400,
     )
 
+
 def delete_all_files_in_folder(folder_path: str) -> None:
-    #docstring for this function
+    # docstring for this function
     """
     Deletes all files in a given folder.
 
@@ -65,7 +66,8 @@ def delete_all_files_in_folder(folder_path: str) -> None:
             if os.path.isfile(file_path):
                 os.unlink(file_path)
         except Exception as e:
-            print(f'Failed to delete {file_path}. Reason: {e}')
+            print(f"Failed to delete {file_path}. Reason: {e}")
+
 
 def normalize_data(
     data: List[Dict[str, str]],
@@ -75,7 +77,7 @@ def normalize_data(
 ) -> List[Dict[str, Optional[str]]]:
     """
     Normalizes a list of data entries according to the specified mapping and configuration.
-    Adjusts for date and cutoff point in "Memo" 
+    Adjusts for date and cutoff point in "Memo"
 
     Args:
         data (List[Dict[str, str]]): The data entries to normalize.
@@ -113,10 +115,12 @@ def normalize_data(
                         normalized_entry[standard] = None
                 elif source == "Buchungstext" and memo_cutoff_config:
                     # Apply memo cutoff to remove unwanted text from memo
-                    normalized_entry[standard] = entry[source].split(memo_cutoff_config)[0]
+                    normalized_entry[standard] = entry[source].split(
+                        memo_cutoff_config
+                    )[0]
                 else:
                     # No conversion needed, transfer data as is
-                    
+
                     normalized_entry[standard] = entry[source]
                     # This never gets triggered?
             else:

@@ -98,8 +98,11 @@ async def index(request: Request) -> HTMLResponse:
         request=request, name="index.html", context={"banks": BANKS}
     )
 
+
 @app.post("/uploadfile")
-async def create_upload_file(file_upload: UploadFile, request: Request, background_tasks: BackgroundTasks) -> HTMLResponse:
+async def create_upload_file(
+    file_upload: UploadFile, request: Request, background_tasks: BackgroundTasks
+) -> HTMLResponse:
     """
     Handle the upload of a CSV file, validate it, and prepare data for display.
 
@@ -125,9 +128,7 @@ async def create_upload_file(file_upload: UploadFile, request: Request, backgrou
     elif not file_upload.filename.lower().endswith(tuple(FILETYPES)):
         raise Message("You did not provide a .csv file!")
     else:
-        # TODO CHECK IF VALID CSV
         # Get the bank configuration
-
         save_to = UPLOAD_DIR / file_upload.filename
         with open(save_to, "wb") as f:
             f.write(data)
@@ -140,7 +141,7 @@ async def create_upload_file(file_upload: UploadFile, request: Request, backgrou
         config = CSV_CONFIGS.get(bank)
         account_type = config.get("type")
 
-        #Delete all files in the upload directory once on verify
+        # Delete all files in the upload directory once on verify
         background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
 
         return templates.TemplateResponse(
@@ -152,7 +153,8 @@ async def create_upload_file(file_upload: UploadFile, request: Request, backgrou
 
 @app.post("/download-file")
 async def download_file(
-    request: Request, background_tasks: BackgroundTasks) -> FileResponse:
+    request: Request, background_tasks: BackgroundTasks
+) -> FileResponse:
     """
     Generate a CSV file from user-edited data and initiate a download.
     Delete all files in the upload directory after the download.
@@ -205,13 +207,23 @@ async def download_file(
         filename, media_type="text/csv", filename=os.path.basename(filename)
     )
 
-     #Delete all files in the upload directory once downloaded
+    # Delete all files in the upload directory once downloaded
     background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
     return response
 
+
 @app.get("/thankyou")
-async def thankyou(request: Request):
-    return templates.TemplateResponse(
-        request=request, name="thankyou.html", context={}
-    )
+async def thankyou(request: Request) -> HTMLResponse:
+    """
+    Serve the thank you page page.
+
+    Args:
+        request (Request): The request context to retrieve form data.
+
+    Returns:
+        HTMLResponse: The HTML response containing the rendered index page.
+    """
+    return templates.TemplateResponse(request=request, name="thankyou.html", context={})
+
+
 # ----END ROUTES----- #
