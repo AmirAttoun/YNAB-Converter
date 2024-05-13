@@ -112,7 +112,8 @@ uvicorn main:app --reload
     - temporarily stores the uploaded and converted transaction statement. This directory is flushed immediately after the upload of the initial file.
 
 
-### CSV_CONFIG / STANDARD_HEADERS
+### CSV_CONFIG / STANDARD_HEADERS
+
 ```
 # ----CONFIG----- #
 # Standard headers for CSV files
