@@ -207,16 +207,7 @@ async def download_file(
 
      #Delete all files in the upload directory once downloaded
     background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
-    response.set_cookie(key="downloaded", value="true", max_age=300)  # Valid for 5 minutes
     return response
-
-@app.get("/check-download")
-async def check_download(response: Response, downloaded: bool = Cookie(default=False)):
-    if downloaded:
-        response.delete_cookie(key="downloaded")  # Clear the cookie after checking
-        return templates.TemplateResponse("thankyou.html", {})
-    else:
-        return {"message": "No download initiated"}
 
 @app.get("/thankyou")
 async def thankyou(request: Request):
