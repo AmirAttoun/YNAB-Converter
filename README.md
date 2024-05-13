@@ -36,6 +36,7 @@ to the YNAB defined ready-for-import structure.
 Data such as "Memo" and "Payee" can be edited on the fly.
 
 The application allows for quick addition of new source statements from different banks, including dynamic header mapping and further config parameterization.
+See CSV_CONFIG in main.py
 
 ## Technology
 This project was built using:
@@ -54,6 +55,7 @@ Both statemtens will be processed to a uniform format.
 
 ### Editing the transaction statement
 Once a statement has been uploaded, the user is free to edit the relevant fields.
+Depending on the config in main.py, certain words will be used a split point.
 Relevant fields are "Memo" and "Payee". Date and the amount are not editable to ensure integrity of crucial data as noted by the transaction statement.
 
 ### Downloading the normalized transaction statement
@@ -68,11 +70,17 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 ### Future optimization
 - Unit tests
 - Handle I/O in memory (or DB)
-- Better Error Handling
-- User session logic
+- Better error handling
+- Reworked end points
+- OOP implementation?
+- Design improvements
 
 ### Requirements
-See requirements.txt for mandatory pip installs
+See requirements.txt for mandatory pip installs.
+
+```
+pip install -r requirements. txt
+```
 
 ### Usage
 ```
