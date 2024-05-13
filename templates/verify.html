@@ -6,61 +6,63 @@
 
 {% block main %}
 <section class="section-verify" id="hero">
-<div class="hero-container form-group">
-    <form method="post" action="/download-file"> <!-- Form to handle data submission -->
-        <table>
-            <!-- Table Header -->
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Payee</th>
-                    <th>Memo</th>
-                    <th>Inflow</th>
-                    <th>Outflow</th>
-                </tr>
-            </thead>
-            <!-- Table Body -->
-            <tbody>
-                {% for entry in filedata %}
-                <tr>
-                    <td>
-                        {{ entry.Valuta }}
-                        <input class="form-control" type="hidden" name="valuta_{{ loop.index }}" value="{{ entry.Valuta }}">
-                        <input class="form-control" type="hidden" name="bank" value="{{ bank }}">
-                    </td>
-                    <td>
-                        <input class="form-control" type="text" name="payee_{{ loop.index }}" value="{{ entry.Payee }}" style="min-width:300px;">
-                    </td>
-                    <td>
-                        <input class="form-control" type="text" name="buchungstext_{{ loop.index }}" value="{{ entry.Buchungstext }}" style="min-width:300px;">
-                    </td>
-                    {% if entry.Betrag and account_type == "Debit" and entry.Betrag | float > 0.0 %}
-                        <td>
-                            {{ entry.Betrag }}
-                            <input type="hidden" name="inflow_{{ loop.index }}" value="{{ entry.Betrag }}">
-                        </td>
-                        <td>
-                            <input type="hidden" name="outflow_{{ loop.index }}" value="">
-                        </td>
-                    {% else %}
-                        <td>
-                            <input type="hidden" name="inflow_{{ loop.index }}" value="">
-                        </td>
-                        <td>
-                            {{ entry.Betrag }}
-                            <input type="hidden" name="outflow_{{ loop.index }}" value="{{ entry.Betrag }}">
-                        </td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button class="save-button btn btn-primary" type="submit">Save Changes</button>
-    </form>
-</div>
+    <div class="hero-container form-group">
+        <form method="post" action="/download-file">
+            <div class="table-container">
+                <table>
+                    <!-- Table Header -->
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Payee</th>
+                            <th>Memo</th>
+                            <th class="min-width">Inflow</th>
+                            <th class="min-width">Outflow</th>
+                        </tr>
+                    </thead>
+                    <!-- Scrollable Table Body -->
+                    <tbody>
+                        {% for entry in filedata %}
+                        <tr>
+                            <td>
+                                {{ entry.Valuta }}
+                                <input class="form-control" type="hidden" name="valuta_{{ loop.index }}" value="{{ entry.Valuta }}">
+                                <input class="form-control" type="hidden" name="bank" value="{{ bank }}">
+                            </td>
+                            <td class="memo-min-width">
+                                <input class="form-control"  type="text" name="payee_{{ loop.index }}" value="{{ entry.Payee }}" >
+                            </td>
+                            <td class="memo-min-width">
+                                <input class="form-control" type="text" name="buchungstext_{{ loop.index }}" value="{{ entry.Buchungstext }}">
+                            </td>
+                            {% if entry.Betrag and account_type == "Debit" and entry.Betrag | float > 0.0 %}
+                                <td class="flow-min-width">
+                                    {{ entry.Betrag }}
+                                    <input type="hidden" name="inflow_{{ loop.index }}" value="{{ entry.Betrag }}">
+                                </td>
+                                <td class="flow-min-width">
+                                    <input type="hidden" name="outflow_{{ loop.index }}" value="">
+                                </td>
+                            {% else %}
+                                <td class="flow-min-width">
+                                    <input type="hidden" name="inflow_{{ loop.index }}" value="">
+                                </td>
+                                <td class="flow-min-width">
+                                    {{ entry.Betrag }}
+                                    <input type="hidden" name="outflow_{{ loop.index }}" value="{{ entry.Betrag }}">
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button class="save-button btn btn-primary" type="submit">Save Changes</button>
+        </form>
+    </div>
 </section>
-
 {% endblock %}
+
 {% block scripts %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -84,11 +86,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Adjust widths for each column individually
-    adjustInputWidths('input[name^="valuta_"]');     // For 'Date' column
-    adjustInputWidths('input[name^="payee_"]');      // For 'Payee' column
-    adjustInputWidths('input[name^="buchungstext_"]'); // For 'Memo' column
-    adjustInputWidths('input[name^="inflow_"]');     // For 'Inflow' column
-    adjustInputWidths('input[name^="outflow_"]');    // For 'Outflow' column
-});
-</script>
+    adjustInputWidths('input[name^="valuta_"]');
+    adjustInputWidths('input[name^="payee_"]');
+    adjustInputWidths('input[name^="buchungstext_"]');
+    adjustInputWidths('input[name^="inflow_"]');
+    adjustInputWidths('input[name^="
 {% endblock %}

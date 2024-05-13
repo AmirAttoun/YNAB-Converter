@@ -29,6 +29,8 @@ STANDARD_HEADERS: List[str] = ["Datum", "Buchungstext", "Betrag", "Valuta"]
 # type: Type of account (Debit or Credit)
 # header_cutoff: Number of intial lines to ignore in CSV file
 # initial_field: Initial field to identify the start of the CSV file in accordance with the bank chosen
+# memo_cut_off: Splitpoint for the memo field
+
 
 CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
     "Migrosbank": {
@@ -45,6 +47,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
         "type": "Debit",
         "header_cutoff": 11,
         "initial_field": "Kontoauszug bis:",
+        "memo_cut_off": "Karte:",
     },
     "Viseca (One)": {
         "headers": [
@@ -70,6 +73,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
         "type": "Credit",
         "header_cutoff": 0,
         "initial_field": "TransactionID",
+        "memo_cut_off": None,
     }
     # Other configurations as needed
 }
