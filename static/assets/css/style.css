@@ -254,10 +254,66 @@ h6,
 }
 
 /*--------------------------------------------------------------
+# Table Verify
+--------------------------------------------------------------*/
+
+    /* Container to hold the table with proper scrolling */
+    .table-container {
+      max-height: 100vh; 
+      overflow-y: auto; 
+      overflow-x: hidden;
+      min-width: 100vh; 
+  }
+
+
+  table {
+      width: 100%; 
+      border-collapse: collapse; 
+  }
+
+  /* Sticky header */
+  thead th {
+      position: sticky;
+      top: 0;
+      background-color: #5355cf; 
+      z-index: 1;
+  }
+
+  th, td {
+      min-width: 120px; /* Minimum width for each cell, adjust as needed */
+      max-width: 300px; /* Maximum width for each cell, adjust as needed */
+      white-space: nowrap; 
+      overflow: hidden;
+      text-overflow: ellipsis; /* Adds an ellipsis when text is too long */
+      border: 0px solid #ccc; /* Optional, adds a border for clarity */
+      padding: 10px; /* Padding for aesthetic spacing */
+  }
+
+    /* Specific column styles */
+    th.flow-min-width, td.flow-min-width {
+      min-width: 50px; /* Smaller width for specific columns */
+      max-width: 200px;
+  }
+
+  th.memo-min-width, td.memo-min-width {
+    min-width: 500px; /* Smaller width for specific columns */
+    max-width: 500px;
+}
+
+
+/*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
-section {
-  padding: 60px 0;
+.section-index {
+  padding: 300px 0;
+}
+
+.section-verify {
+  padding: 30px 0;
+}
+
+.section-verify {
+  padding: 30px 0;
 }
 
 .section-bg {
@@ -433,4 +489,32 @@ section {
 
 #footer .credits a {
   color: #72a8bf;
+}
+
+/*--------------------------------------------------------------
+# Webkit scrollbar
+--------------------------------------------------------------*/
+/* Custom scrollbar styling */
+.table-container::-webkit-scrollbar {
+  width: 12px; /* Scrollbar width */
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: transparent; /* Transparent track */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2); /* Slightly transparent black for the thumb */
+  border-radius: 6px; /* Rounded corners for the thumb */
+  border: 3px solid transparent; /* Makes the thumb float with transparent borders */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.4); /* Darker shade on hover for better visibility */
+}
+
+/* Styles for Firefox */
+.table-container {
+  scrollbar-color: rgba(0,0,0,0.2) transparent; /* Thumb and track colors */
+  scrollbar-width: thin; /* Similar to setting width in WebKit */
 }

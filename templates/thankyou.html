@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Thank You!
+{% endblock %}
+
+{% block main %}
+<section class="section-index" id="hero">
+<div class="hero-container">
+    <h1>
+        Thank you for using YNAB Converter! You will be redirected back home in <span id="countdown">5</span> seconds.
+    </h1>
+</div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Only call the countdown function if the countdown element exists
+        if (document.getElementById('countdown')) {
+            startRedirectCountdown();
+        }
+    });
+</script>
+{% endblock %}

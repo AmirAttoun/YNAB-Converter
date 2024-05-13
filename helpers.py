@@ -75,6 +75,7 @@ def normalize_data(
 ) -> List[Dict[str, Optional[str]]]:
     """
     Normalizes a list of data entries according to the specified mapping and configuration.
+    Adjusts for date and cutoff point in "Memo" 
 
     Args:
         data (List[Dict[str, str]]): The data entries to normalize.
@@ -91,6 +92,8 @@ def normalize_data(
         "date_conversion"
     )  # Get date conversion info from the config
 
+    memo_cutoff_config = config.get("memo_cut_off")  # Get memo cutoff from the config
+    print(memo_cutoff_config)
     for entry in data:
         normalized_entry = {}
         for source, standard in mapping.items():
@@ -108,8 +111,12 @@ def normalize_data(
                     except ValueError:
                         # Handle cases where date conversion fails
                         normalized_entry[standard] = None
+                elif source == "Buchungstext" and memo_cutoff_config:
+                    # Apply memo cutoff to remove unwanted text from memo
+                    normalized_entry[standard] = entry[source].split(memo_cutoff_config)[0]
                 else:
                     # No conversion needed, transfer data as is
+                    
                     normalized_entry[standard] = entry[source]
                     # This never gets triggered?
             else:

@@ -1,4 +1,4 @@
-from fastapi import Request, UploadFile, BackgroundTasks
+from fastapi import Request, UploadFile, BackgroundTasks, Cookie, Response
 from fastapi.responses import HTMLResponse, FileResponse
 from pathlib import Path
 from typing import List, Dict, Any
@@ -29,6 +29,8 @@ STANDARD_HEADERS: List[str] = ["Datum", "Buchungstext", "Betrag", "Valuta"]
 # type: Type of account (Debit or Credit)
 # header_cutoff: Number of intial lines to ignore in CSV file
 # initial_field: Initial field to identify the start of the CSV file in accordance with the bank chosen
+# memo_cut_off: Splitpoint for the memo field
+
 
 CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
     "Migrosbank": {
@@ -45,6 +47,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
         "type": "Debit",
         "header_cutoff": 11,
         "initial_field": "Kontoauszug bis:",
+        "memo_cut_off": "Karte:",
     },
     "Viseca (One)": {
         "headers": [
@@ -70,6 +73,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
         "type": "Credit",
         "header_cutoff": 0,
         "initial_field": "TransactionID",
+        "memo_cut_off": None,
     }
     # Other configurations as needed
 }
@@ -93,7 +97,6 @@ async def index(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(
         request=request, name="index.html", context={"banks": BANKS}
     )
-
 
 @app.post("/uploadfile")
 async def create_upload_file(file_upload: UploadFile, request: Request, background_tasks: BackgroundTasks) -> HTMLResponse:
@@ -204,6 +207,20 @@ async def download_file(
 
      #Delete all files in the upload directory once downloaded
     background_tasks.add_task(delete_all_files_in_folder, UPLOAD_DIR)
+    response.set_cookie(key="downloaded", value="true", max_age=300)  # Valid for 5 minutes
     return response
 
+@app.get("/check-download")
+async def check_download(response: Response, downloaded: bool = Cookie(default=False)):
+    if downloaded:
+        response.delete_cookie(key="downloaded")  # Clear the cookie after checking
+        return templates.TemplateResponse("thankyou.html", {})
+    else:
+        return {"message": "No download initiated"}
+
+@app.get("/thankyou")
+async def thankyou(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="thankyou.html", context={}
+    )
 # ----END ROUTES----- #
