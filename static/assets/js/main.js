@@ -14,13 +14,9 @@ function startRedirectCountdown() {
 }
 
 function setupDownloadAndRedirect() {
-        console.log("Setting up asdasd and redirect");
         const downloadButton = document.getElementById('submit');
         if (downloadButton) {
             downloadButton.addEventListener('click', function() {
-                // Assuming '/download-file' triggers the file download
-                window.location.href = '/download-file';
-
                 // Redirect after a short delay to ensure download dialog appears
                 setTimeout(function() {
                     window.location.href = '/thankyou';
