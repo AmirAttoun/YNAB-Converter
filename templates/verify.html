@@ -57,7 +57,7 @@
                     </tbody>
                 </table>
             </div>
-            <button class="save-button btn btn-primary" type="submit">Save Changes</button>
+            <button id="submit" class="save-button btn btn-primary" type="submit">Save Changes</button>
         </form>
     </div>
 </section>
@@ -65,30 +65,11 @@
 
 {% block scripts %}
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to adjust input widths based on the longest content in their column
-    function adjustInputWidths(columnSelector) {
-        const inputs = document.querySelectorAll(columnSelector);
-        let maxWidth = 0;
-
-        // Determine the maximum width needed for inputs in this column
-        inputs.forEach(input => {
-            const currentWidth = input.value.length * 8 + 20;  // Estimate width based on content
-            if (currentWidth > maxWidth) {
-                maxWidth = currentWidth;
-            }
-        });
-
-        // Apply the maximum width to all inputs in the column
-        inputs.forEach(input => {
-            input.style.width = maxWidth + 'px';
-        });
-    }
-
-    // Adjust widths for each column individually
-    adjustInputWidths('input[name^="valuta_"]');
-    adjustInputWidths('input[name^="payee_"]');
-    adjustInputWidths('input[name^="buchungstext_"]');
-    adjustInputWidths('input[name^="inflow_"]');
-    adjustInputWidths('input[name^="
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize the download and redirect setup if we're on the verify page
+        if (document.getElementById('submit')) {
+            setupDownloadAndRedirect();
+        }
+    });
+</script>
 {% endblock %}

@@ -75,6 +75,7 @@ def normalize_data(
 ) -> List[Dict[str, Optional[str]]]:
     """
     Normalizes a list of data entries according to the specified mapping and configuration.
+    Adjusts for date and cutoff point in "Memo" 
 
     Args:
         data (List[Dict[str, str]]): The data entries to normalize.
