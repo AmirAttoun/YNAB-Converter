@@ -68,6 +68,7 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 - Unit tests
 - Handle I/O in memory (or DB)
 - Better error handling
+    - Improved file validation is needed.
 - Reworked endpoints
 - OOP implementation?
 - Design improvements
@@ -117,15 +118,15 @@ uvicorn main:app --reload
 # Standard headers for CSV files
 STANDARD_HEADERS: List[str] = ["Datum", "Buchungstext", "Betrag", "Valuta"]
 
-# headers: Headers to expect in the CSV file
-# delimiter: Delimiter used in the CSV file
-# skip_first_row: Whether to skip the first row of the CSV file
-# mapping: Mapping of expected headers to standard headers
-# date_conversion: Date conversion configuration
-# type: Type of account (Debit or Credit)
-# header_cutoff: Number of intial lines to ignore in CSV file
-# initial_field: Initial field to identify the start of the CSV file in accordance with the bank chosen
-# memo_cut_off: Splitpoint for the memo field
+# Headers: Expected headers in the CSV file
+# Delimiter: Character used to separate fields in the CSV
+# Skip_first_row: Whether to skip the first row (typically headers)
+# Mapping: Links CSV headers to standard headers
+# Date_conversion: Configuration for date formatting
+# Type: Account type (Debit or Credit)
+# Header_cutoff: Number of initial lines to skip (excluding header)
+# Initial_field: Identifier for the start of data in the CSV (for validation purposes)
+# Memo_cut_off: Delimiter for splitting the memo field
 
 
 CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
