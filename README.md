@@ -68,7 +68,7 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 - Unit tests
 - Handle I/O in memory (or DB)
 - Better error handling
-    - Improved file validation is needed.
+    - Improved file validation is needed
 - Reworked endpoints
 - OOP implementation?
 - Design improvements
