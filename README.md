@@ -177,7 +177,7 @@ CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
 # ----END CONFIG----- #
 ```
 
-### Copyright Disclaimer
+### Copyright Disclaimer Design Template
 The design for the application is provided for free by https://bootstrapmade.com/free-bootstrap-coming-soon-template-countdwon/ and has been "jinjafied" and adjusted by me.
 Please check https://bootstrapmade.com/license/ for further details.
 
