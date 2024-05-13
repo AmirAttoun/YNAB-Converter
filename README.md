@@ -73,6 +73,19 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 - Reworked end points
 - OOP implementation?
 - Design improvements
+- Suggestions for Payees during verify
+
+#### Thoughts on the implementation
+As a first FastAPI project, I am pleased with the results.
+My tendency to jump into the code and figure out critical strucutural decisions later manifest itself again.
+Therefore the code is a lot messier and unoptimized as well.
+
+For exmaple, the decesion to configure variable in the consts CSV_CONFIG and STANDARD_HEADERS is a good one but is fairly basic.
+Much nicer would be the option to upload a csv, and let the user map the required output headers to the input file dynamically through the GUI. This way no strict pre-config would be necessary.
+I'm also not completely happy with the implementation of the end points. I'm especially annoyed that after the file upload, I had to resort to JavaScript to handele the redirect to /thankyou. I would much prefer to handle this logic all in FastAPI.
+In many ways, I still need to discover a lot about FastAPI.
+
+Additionally, I still do not like CSS one bit. Bootstrap is nice though.
 
 ### Requirements
 See requirements.txt for mandatory pip installs.
@@ -85,6 +98,16 @@ pip install -r requirements.txt
 ```
 uvicorn main:app --reload
 ```
+
+### File and folder listings
+- main.py contains the main logic in the form of routes. This files also containt the import CSV_CONFIG and STANDARD_HEADERS constants for defining .csv import templates.
+- helpers.py contains the core logic for reading and normalizing the input. The file also includes a custom exception in the form of Class Message(). I use this class to dynamically call the error.html template with a custom message. In retrospecht, FastAPI could do this through HTTP Exceptions. Additionally, this file containts a function to delete the temporarily stored bankstatements after the upload.
+- templates/ contains all html templates. The base layout is provided through layout.html. The other templates extend the base layout.
+- static/ contains all css, img, js, and vendor files. This includes a local version of bootstrap. main.js is the only JS code used an provides two functions. One of them is a redirect which I could not achieve through FastAPI since it is not feasible to return a template after the HTTP reposnse is done. The other function display a countdown on the thankyou.html as well as a redirect to root.
+- sample_uploads/ containts two sample transaction statements for testing purposes.
+- files/ temporarily stores the uploaded and converted transaction statement. This directory is flushed immediately after the upload of the initial file.
+
+
 ### CSV_CONFIG / STANDARD_HEADERS
 ```
 # ----CONFIG----- #
