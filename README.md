@@ -21,8 +21,8 @@ This project was created as the final project for edX's C50x Computer Science wi
 
 
 ## Glossary
-- Migrosbank: A local Swiss bank
-- Vicesa (One): A credit card provider
+- Migrosbank (https://www.migrosbank.ch): A local Swiss bank
+- Vicesa One (https://www.viseca.ch/de): A credit card provider
 - YNAB (https://ynab.com): A web based budgeting tool
 
 ## Description
@@ -78,7 +78,7 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 See requirements.txt for mandatory pip installs.
 
 ```
-pip install -r requirements. txt
+pip install -r requirements.txt
 ```
 
 ### Usage
