@@ -35,8 +35,7 @@ This application aims at formatting the differing individual transaction stateme
 to the YNAB defined ready-for-import structure.
 Data such as "Memo" and "Payee" can be edited on the fly.
 
-The application allows for quick addition of new source statements from different banks, including dynamic header mapping and further config parameterization.
-See CSV_CONFIG in main.py
+The application allows for quick addition of new source statements from different banks, including dynamic header mapping and further config parameterization
 
 ## Technology
 This project was built using:
@@ -86,6 +85,71 @@ pip install -r requirements. txt
 ```
 uvicorn main:app --reload
 ```
+### CSV_CONFIG / STANDARD_HEADERS
+```
+# ----CONFIG----- #
+# Standard headers for CSV files
+STANDARD_HEADERS: List[str] = ["Datum", "Buchungstext", "Betrag", "Valuta"]
+
+# headers: Headers to expect in the CSV file
+# delimiter: Delimiter used in the CSV file
+# skip_first_row: Whether to skip the first row of the CSV file
+# mapping: Mapping of expected headers to standard headers
+# date_conversion: Date conversion configuration
+# type: Type of account (Debit or Credit)
+# header_cutoff: Number of intial lines to ignore in CSV file
+# initial_field: Initial field to identify the start of the CSV file in accordance with the bank chosen
+# memo_cut_off: Splitpoint for the memo field
+
+
+CSV_CONFIGS: Dict[str, Dict[str, Any]] = {
+    "Migrosbank": {
+        "headers": ["Datum", "Buchungstext", "Betrag", "Valuta"],
+        "delimiter": ";",
+        "skip_first_row": True,
+        "mapping": {
+            "Datum": "Datum",
+            "Buchungstext": "Buchungstext",
+            "Betrag": "Betrag",
+            "Valuta": "Valuta",
+        },
+        "date_conversion": None,
+        "type": "Debit",
+        "header_cutoff": 11,
+        "initial_field": "Kontoauszug bis:",
+        "memo_cut_off": "Karte:",
+    },
+    "Viseca (One)": {
+        "headers": [
+            "TransactionID",
+            "Date",
+            "Merchant",
+            "Amount",
+            "PFMCategoryID",
+            "PFMCategoryName",
+        ],
+        "delimiter": ",",
+        "skip_first_row": True,
+        "mapping": {
+            "Date": "Valuta",
+            "Merchant": "Payee",
+            "Amount": "Betrag",
+            "PFMCategoryName": "Buchungstext",
+        },
+        "date_conversion": {
+            "source_format": "%Y-%m-%dT%H:%M:%S",
+            "target_format": "%d.%m.%y",
+        },
+        "type": "Credit",
+        "header_cutoff": 0,
+        "initial_field": "TransactionID",
+        "memo_cut_off": None,
+    }
+    # Other configurations as needed
+}
+# ----END CONFIG----- #
+```
+
 ### Copyright Disclaimer
 The design for the application is provided for free by https://bootstrapmade.com/free-bootstrap-coming-soon-template-countdwon/ and has been "jinjafied" and adjusted by me.
 Please check https://bootstrapmade.com/license/ for further details.
