@@ -73,7 +73,7 @@ Payment categories will need to be added in YNAB as the .csv import does not sup
 - Design improvements
 - Suggestions for Payees during verification
 
-#### Thoughts on the implementation
+### Thoughts on the implementation
 As a first FastAPI project, I am pleased with the results.
 My tendency to jump into the code and figure out critical structural decisions later manifested itself again.
 Therefore, the code is a lot messier and unoptimized as well.
