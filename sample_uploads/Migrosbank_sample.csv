@@ -1,0 +1,39 @@
+Kontoauszug bis: XX.XX.XXXX;;;
+;;;
+Kontonummer: XXX.XXX.XX;;;
+Bezeichnung: Privatkonto;;;
+Saldo: CHF XXXXXX.XX;;;
+;;;
+Max Mustermann;;;
+Musterweg 17;;;
+9999 Timbuktu;;;
+;;;
+;;;
+Datum;Buchungstext;Betrag;Valuta
+10.05.24;Spesen für Papierdokument€;-1.5;10.05.24
+10.05.24;Einkauf migrolino Winterthur 08.05.2024 08:02 Karte: 474234******1234 Betrag: CHF 2.20;-2.2;08.05.24
+10.05.24;Einkauf Coop-1923 Wint. St 08.05.2024 17:12 Karte: 474234******1234 Betrag: CHF 43.25;-43.25;08.05.24
+10.05.24;Einkauf Bahnhofkiosk Unterfuhrun 08.05.2024 08:00 Karte: 474234******1234 Betrag: CHF 13.65;-13.65;08.05.24
+10.05.24;Einkauf Coop-2608 City SM 08.05.2024 13:06 Karte: 474234******1234 Betrag: CHF 12.45;-12.45;08.05.24
+10.05.24;Einkauf Coop-2608 City SM 08.05.2024 11:43 Karte: 474234******1234 Betrag: CHF 2.90;-2.9;08.05.24
+10.05.24;Einkauf Coop-2608 City SM 07.05.2024 17:28 Karte: 474234******1234 Betrag: CHF 3.45;-3.45;07.05.24
+10.05.24;Einkauf Bahnhofkiosk Unterfuhrun 07.05.2024 07:41 Karte: 474234******1234 Betrag: CHF 9.90;-9.9;07.05.24
+10.05.24;Einkauf Coop-1923 Wint. St 07.05.2024 12:31 Karte: 474234******1234 Betrag: CHF 19.40;-19.4;07.05.24
+08.05.24;Vergütung;-1239.28;08.05.24
+08.05.24;Zahlungseingang;1239.28;08.05.24
+08.05.24;Einkauf Coop-1923 Wint. St 06.05.2024 17:36 Karte: 474234******1234 Betrag: CHF 28.50;-28.5;06.05.24
+08.05.24;Einkauf Coop-2608 City SM 06.05.2024 13:20 Karte: 474234******1234 Betrag: CHF 31.00;-31;06.05.24
+08.05.24;Einkauf Coop-2608 City SM 06.05.2024 12:14 Karte: 474234******1234 Betrag: CHF 2.90;-2.9;06.05.24
+08.05.24;Einkauf STEAM PURCHASE 04.05.2024 14:13 Karte: 474234******1234 Betrag: CHF 9.90;-11.4;04.05.24
+08.05.24;Einkauf STEAM PURCHASE 03.05.2024 22:13 Karte: 474234******1234 Betrag: CHF 1.08;-2.58;03.05.24
+07.05.24;Einkauf 165.70 kkiosk 05.05.2024 16:55 Karte: 474234******1234 Betrag: CHF 9.90;-9.9;05.05.24
+07.05.24;Einkauf Coop-2238 Wint. St 05.05.2024 16:54 Karte: 474234******1234 Betrag: CHF 8.25;-8.25;05.05.24
+06.05.24;TWINT Belastung SBB EasyRide 0400002196219921;-3.5;06.05.24
+06.05.24;Einkauf k kiosk Shopping Seen 04.05.2024 14:55 Karte: 474234******1234 Betrag: CHF 9.90;-9.9;04.05.24
+06.05.24;Einkauf Migros MM Seen 04.05.2024 15:09 Karte: 474234******1234 Betrag: CHF 35.00;-35;04.05.24
+06.05.24;Einkauf Bahnhofkiosk Unterfuhrun 03.05.2024 07:53 Karte: 474234******1234 Betrag: CHF 9.90;-9.9;03.05.24
+06.05.24;Einkauf Migros MMM Neuwiesen 03.05.2024 16:05 Karte: 474234******1234 Betrag: CHF 14.90;-14.9;03.05.24
+06.05.24;Einkauf Migros MMM Neuwiesen 03.05.2024 16:05 Karte: 474234******1234 Betrag: CHF 14.90;-14.9;03.05.24
+06.05.24;Einkauf Migros MMM Neuwiesen 03.05.2024 16:05 Karte: 474234******1234 Betrag: CHF 14.90;-14.9;03.05.24
+06.05.24;Einkauf Migros MMM Neuwiesen 03.05.2024 16:05 Karte: 474234******1234 Betrag: CHF 14.90;-14.9;03.05.24
+06.05.24;Einkauf Migros MMM Neuwiesen 03.05.2024 16:05 Karte: 474234******1234 Betrag: CHF 14.90;-14.9;03.05.24
